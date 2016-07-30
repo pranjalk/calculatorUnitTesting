@@ -16,302 +16,225 @@
 
     class CalculatorTest extends TestCase {
 
-        //Addition test cases for all permutation and combination
-        //in plus minus and zero
+        private $calculator;
 
-        public function testAddPlusPlus() {
-            $testVar = new Calculator(4,5);
-            $testVar->add();
-            $this->assertEquals(9, $testVar->getResult());
+        protected function setUp()
+        {
+            $this->calculator = new Calculator(0,0);
         }
 
-        public function testAddPlusZero() {
-            $testVar = new Calculator(4,0);
-            $testVar->add();
-            $this->assertEquals(4, $testVar->getResult());
+        protected function tearDown()
+        {
+            $this->calculator = NULL;
         }
 
-        public function testAddPlusMinus() {
-            $testVar = new Calculator(4,-5);
-            $testVar->add();
-            $this->assertEquals(-1, $testVar->getResult());
-        }
+        public function additionDataProvider() {
+            return array(
+                array("first_operand" => 4,
+                        "second_operand" => 5,
+                        "expected_result" => 9),
+                array("first_operand" => 4,
+                        "second_operand" => 0,
+                        "expected_result" => 4),
+                array("first_operand" => 4,
+                        "second_operand" => -4,
+                        "expected_result" => 0),
+                array("first_operand" => 0,
+                        "second_operand" => 4,
+                        "expected_result" => 4),
+                array("first_operand" => 0,
+                        "second_operand" => 0,
+                        "expected_result" => 0),
+                array("first_operand" => 0,
+                        "second_operand" => -4,
+                        "expected_result" => -4),
+                array("first_operand" => -4,
+                        "second_operand" => 5,
+                        "expected_result" => 1),
+                array("first_operand" => -4,
+                        "second_operand" => 0,
+                        "expected_result" => -4),
+                array("first_operand" => -4,
+                        "second_operand" => -5,
+                        "expected_result" => -9),
+                );
+            }
 
-        public function testAddZeroPlus() {
-            $testVar = new Calculator(0,5);
-            $testVar->add();
-            $this->assertEquals(5, $testVar->getResult());
-        }
+            /**
+            * @dataProvider additionDataProvider
+            */
+           public function testAdd($operand_one, $operand_two, $expected){
+               $this->calculator->setOperandOne($operand_one);
+               $this->calculator->setOperandTwo($operand_two);
+               $this->calculator->add();
+               $this->assertEquals($expected, $this->calculator->getResult());
+           }
 
-        public function testAddZeroZero() {
-            $testVar = new Calculator(0,0);
-            $testVar->add();
-            $this->assertEquals(0, $testVar->getResult());
-        }
+            public function subtractionDataProvider() {
+                return array(
+                    array("first_operand" => 4,
+                            "second_operand" => 5,
+                            "expected_result" => -1),
+                    array("first_operand" => 4,
+                            "second_operand" => 0,
+                            "expected_result" => 4),
+                    array("first_operand" => 4,
+                            "second_operand" => -4,
+                            "expected_result" => 8),
+                    array("first_operand" => 0,
+                            "second_operand" => 4,
+                            "expected_result" => -4),
+                    array("first_operand" => 0,
+                            "second_operand" => 0,
+                            "expected_result" => 0),
+                    array("first_operand" => 0,
+                            "second_operand" => -4,
+                            "expected_result" => 4),
+                    array("first_operand" => -4,
+                            "second_operand" => 5,
+                            "expected_result" => -9),
+                    array("first_operand" => -4,
+                            "second_operand" => 0,
+                            "expected_result" => -4),
+                    array("first_operand" => -4,
+                            "second_operand" => -5,
+                            "expected_result" => 1),
+                    );
+                }
 
-        public function testAddZeroMinus() {
-            $testVar = new Calculator(0,-5);
-            $testVar->add();
-            $this->assertEquals(-5, $testVar->getResult());
-        }
+            /**
+            * @dataProvider subtractionDataProvider
+            */
+           public function testSubtract($operand_one, $operand_two, $expected){
+               $this->calculator->setOperandOne($operand_one);
+               $this->calculator->setOperandTwo($operand_two);
+               $this->calculator->subtract();
+               $this->assertEquals($expected, $this->calculator->getResult());
+           }
 
-        public function testAddMinusPlus() {
-            $testVar = new Calculator(-4,5);
-            $testVar->add();
-            $this->assertEquals(1, $testVar->getResult());
-        }
+                public function multiplicationDataProvider() {
+                    return array(
+                        array("first_operand" => 4,
+                                "second_operand" => 5,
+                                "expected_result" => 20),
+                        array("first_operand" => 4,
+                                "second_operand" => 0,
+                                "expected_result" => 0),
+                        array("first_operand" => 4,
+                                "second_operand" => -4,
+                                "expected_result" => -16),
+                        array("first_operand" => 0,
+                                "second_operand" => 4,
+                                "expected_result" => 0),
+                        array("first_operand" => 0,
+                                "second_operand" => 0,
+                                "expected_result" => 0),
+                        array("first_operand" => 0,
+                                "second_operand" => -4,
+                                "expected_result" => 0),
+                        array("first_operand" => -4,
+                                "second_operand" => 5,
+                                "expected_result" => -20),
+                        array("first_operand" => -4,
+                                "second_operand" => 0,
+                                "expected_result" => 0),
+                        array("first_operand" => -4,
+                                "second_operand" => -5,
+                                "expected_result" => 20),
+                        );
+                    }
 
-        public function testAddMinusZero() {
-            $testVar = new Calculator(-1,0);
-            $testVar->add();
-            $this->assertEquals(-1, $testVar->getResult());
-        }
+       /**
+       * @dataProvider multiplicationDataProvider
+       */
+       public function testmultiply($operand_one, $operand_two, $expected){
+          $this->calculator->setOperandOne($operand_one);
+          $this->calculator->setOperandTwo($operand_two);
+          $this->calculator->multiply();
+          $this->assertEquals($expected, $this->calculator->getResult());
+       }
 
-        public function testAddMinusMinus() {
-            $testVar = new Calculator(-4,-5);
-            $testVar->add();
-            $this->assertEquals(-9, $testVar->getResult());
-        }
+       public function divisionDataProvider() {
+           return array(
+               array("first_operand" => 4,
+                       "second_operand" => 5,
+                       "expected_result" => 0.8),
+               array("first_operand" => 4,
+                       "second_operand" => 0,
+                       "expected_result" => NULL),
+               array("first_operand" => 4,
+                       "second_operand" => -4,
+                       "expected_result" => -1),
+               array("first_operand" => 0,
+                       "second_operand" => 4,
+                       "expected_result" => 0),
+               array("first_operand" => 0,
+                       "second_operand" => 0,
+                       "expected_result" => NULL),
+               array("first_operand" => 0,
+                       "second_operand" => -4,
+                       "expected_result" => 0),
+               array("first_operand" => -4,
+                       "second_operand" => 5,
+                       "expected_result" => -0.8),
+               array("first_operand" => -4,
+                       "second_operand" => 0,
+                       "expected_result" => NULL),
+               array("first_operand" => -4,
+                       "second_operand" => -5,
+                       "expected_result" => 0.8),
+               );
+           }
 
-        //Subtraction test cases for all permutation and combination
-        //in plus minus and zero
+       /**
+       * @dataProvider divisionDataProvider
+       */
+       public function testdivide($operand_one, $operand_two, $expected){
+          $this->calculator->setOperandOne($operand_one);
+          $this->calculator->setOperandTwo($operand_two);
+          $this->calculator->divide();
+          $this->assertEquals($expected, $this->calculator->getResult());
+       }
 
-        public function testSubtractPlusPlus() {
-            $testVar = new Calculator(5,4);
-            $testVar->subtract();
-            $this->assertEquals(1, $testVar->getResult());
-        }
+       public function modulusDataProvider() {
+           return array(
+               array("first_operand" => 4,
+                       "second_operand" => 5,
+                       "expected_result" => 4),
+               array("first_operand" => 4,
+                       "second_operand" => 0,
+                       "expected_result" => NULL),
+               array("first_operand" => 4,
+                       "second_operand" => -4,
+                       "expected_result" => 0),
+               array("first_operand" => 0,
+                       "second_operand" => 4,
+                       "expected_result" => 0),
+               array("first_operand" => 0,
+                       "second_operand" => 0,
+                       "expected_result" => NULL),
+               array("first_operand" => 0,
+                       "second_operand" => -4,
+                       "expected_result" => 0),
+               array("first_operand" => -4,
+                       "second_operand" => 5,
+                       "expected_result" => -4),
+               array("first_operand" => -4,
+                       "second_operand" => 0,
+                       "expected_result" => NULL),
+               array("first_operand" => -4,
+                       "second_operand" => -5,
+                       "expected_result" => -4),
+               );
+           }
 
-        public function testSubtractPlusZero() {
-            $testVar = new Calculator(4,0);
-            $testVar->subtract();
-            $this->assertEquals(4, $testVar->getResult());
-        }
-
-        public function testSubtractPlusMinus() {
-            $testVar = new Calculator(4,-5);
-            $testVar->subtract();
-            $this->assertEquals(9, $testVar->getResult());
-        }
-
-        public function testSubtractZeroPlus() {
-            $testVar = new Calculator(0,5);
-            $testVar->subtract();
-            $this->assertEquals(-5, $testVar->getResult());
-        }
-
-        public function testSubtractZeroZero() {
-            $testVar = new Calculator(0,0);
-            $testVar->subtract();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testSubtractZeroMinus() {
-            $testVar = new Calculator(0,-5);
-            $testVar->subtract();
-            $this->assertEquals(5, $testVar->getResult());
-        }
-
-        public function testSubtractMinusPlus() {
-            $testVar = new Calculator(-4,5);
-            $testVar->subtract();
-            $this->assertEquals(-9, $testVar->getResult());
-        }
-
-        public function testSubtractMinusZero() {
-            $testVar = new Calculator(-1,0);
-            $testVar->subtract();
-            $this->assertEquals(-1, $testVar->getResult());
-        }
-
-        public function testSubtractMinusMinus() {
-            $testVar = new Calculator(-4,-5);
-            $testVar->subtract();
-            $this->assertEquals(1, $testVar->getResult());
-        }
-
-        //Multiplication test cases for all permutation and combination
-        //in plus minus and zero
-
-        public function testMultiplyPlusPlus() {
-            $testVar = new Calculator(4,5);
-            $testVar->multiply();
-            $this->assertEquals(20, $testVar->getResult());
-        }
-
-        public function testMultiplyPlusZero() {
-            $testVar = new Calculator(4,0);
-            $testVar->multiply();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testMultiplyPlusMinus() {
-            $testVar = new Calculator(4,-5);
-            $testVar->multiply();
-            $this->assertEquals(-20, $testVar->getResult());
-        }
-
-        public function testMultiplyZeroPlus() {
-            $testVar = new Calculator(0,5);
-            $testVar->multiply();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testMultiplyZeroZero() {
-            $testVar = new Calculator(0,0);
-            $testVar->multiply();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testMultiplyZeroMinus() {
-            $testVar = new Calculator(0,-5);
-            $testVar->multiply();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testMultiplyMinusPlus() {
-            $testVar = new Calculator(-4,5);
-            $testVar->multiply();
-            $this->assertEquals(-20, $testVar->getResult());
-        }
-
-        public function testMultiplyMinusZero() {
-            $testVar = new Calculator(-1,0);
-            $testVar->multiply();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testMultiplyMinusMinus() {
-            $testVar = new Calculator(-4,-5);
-            $testVar->multiply();
-            $this->assertEquals(20, $testVar->getResult());
-        }
-
-        //Division test cases for all permutation and combination
-        //in plus minus and zero
-
-        public function testDividePlusPlus() {
-            $testVar = new Calculator(4,5);
-            $testVar->divide();
-            $this->assertEquals(0.8, $testVar->getResult());
-        }
-
-        public function testDividePlusZero() {
-            $testVar = new Calculator(4,0);
-            $testVar->divide();
-            //hack for Exception set error code as 99
-            //check assertequal code number
-            $this->assertEquals(99, $testVar->getErrorCode());
-        }
-
-        public function testDividePlusMinus() {
-            $testVar = new Calculator(4,-5);
-            $testVar->divide();
-            $this->assertEquals(-0.8, $testVar->getResult());
-        }
-
-        public function testDivideZeroPlus() {
-            $testVar = new Calculator(0,5);
-            $testVar->divide();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testDivideZeroZero() {
-            $testVar = new Calculator(0,0);
-            $testVar->divide();
-            //hack for Exception set error code as 99
-            //check assertequal code numbe
-            $this->assertEquals(99, $testVar->getErrorCode());
-        }
-
-        public function testDivideZeroMinus() {
-            $testVar = new Calculator(0,-5);
-            $testVar->divide();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testDivideMinusPlus() {
-            $testVar = new Calculator(-4,5);
-            $testVar->divide();
-            $this->assertEquals(-0.8, $testVar->getResult());
-        }
-
-        public function testDivideMinusZero() {
-            $testVar = new Calculator(-1,0);
-            $testVar->divide();
-            //hack for Exception set error code as 99
-            //check assertequal error_code
-            $this->assertEquals(99, $testVar->getErrorCode());
-        }
-
-        public function testDivideMinusMinus() {
-            $testVar = new Calculator(-4,-5);
-            $testVar->divide();
-            $this->assertEquals(0.8, $testVar->getResult());
-        }
-
-        //Modulus test cases for all permutation and combination
-        //in plus minus and zero
-
-        public function testModulusPlusPlus() {
-            $testVar = new Calculator(4,5);
-            $testVar->modulus();
-            $this->assertEquals(4, $testVar->getResult());
-        }
-
-        public function testModulusPlusZero() {
-            $testVar = new Calculator(4,0);
-            $testVar->modulus();
-            //hack for Exception set error code as 99
-            //check assertequal error_code
-            $this->assertEquals(89, $testVar->getErrorCode());
-        }
-
-        public function testModulusPlusMinus() {
-            $testVar = new Calculator(4,-5);
-            $testVar->modulus();
-            $this->assertEquals(4, $testVar->getResult());
-        }
-
-        public function testModulusZeroPlus() {
-            $testVar = new Calculator(0,5);
-            $testVar->modulus();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testModulusZeroZero() {
-            $testVar = new Calculator(0,0);
-            $testVar->modulus();
-            //hack for Exception set error code as 99
-            //check assertequal error_code
-            $this->assertEquals(89, $testVar->getErrorCode());
-        }
-
-        public function testModulusZeroMinus() {
-            $testVar = new Calculator(0,-5);
-            $testVar->modulus();
-            $this->assertEquals(0, $testVar->getResult());
-        }
-
-        public function testModulusMinusPlus() {
-            $testVar = new Calculator(-4,5);
-            $testVar->modulus();
-            $this->assertEquals(-4, $testVar->getResult());
-        }
-
-        public function testModulusMinusZero() {
-            $testVar = new Calculator(-1,0);
-            $testVar->modulus();
-            //hack for Exception set error code as 99
-            //check assertequal error_code
-            $this->assertEquals(89, $testVar->getErrorCode());
-        }
-
-        public function testModulusMinusMinus() {
-            $testVar = new Calculator(-4,-5);
-            $testVar->modulus();
-            $this->assertEquals(-4, $testVar->getResult());
-        }
-
+       /**
+       * @dataProvider modulusDataProvider
+       */
+       public function testmodulus($operand_one, $operand_two, $expected){
+          $this->calculator->setOperandOne($operand_one);
+          $this->calculator->setOperandTwo($operand_two);
+          $this->calculator->modulus();
+          $this->assertEquals($expected, $this->calculator->getResult());
+       }
     }
-?>
